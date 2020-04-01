@@ -95,7 +95,7 @@ static void spi_evt_handler(nrfx_spi_evt_t const * p_event,
 }
 #endif // SPI_PRESENT
 
-ret_code_t  nrf_drv_spi_init(nrf_drv_spi_t const * const p_instance,
+ret_code_t nrf_drv_spi_init(nrf_drv_spi_t const * const p_instance,
                             nrf_drv_spi_config_t const * p_config,
                             nrf_drv_spi_evt_handler_t    handler,
                             void *                       p_context)

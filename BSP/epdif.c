@@ -35,28 +35,6 @@
 #include "nrf_drv_gpiote.h"
 //#include "main.h"
 
-//extern SPI_HandleTypeDef hspi1;
-
-/*EPD_Pin epd_cs_pin = {
-  SPI_CS_GPIO_Port,
-  SPI_CS_Pin,
-};
-
-EPD_Pin epd_rst_pin = {
-  RST_GPIO_Port,
-  RST_Pin,
-};
-
-EPD_Pin epd_dc_pin = {
-  DC_GPIO_Port,
-  DC_Pin,
-};
-
-EPD_Pin epd_busy_pin = {
-  BUSY_GPIO_Port,
-  BUSY_Pin,
-};*/
-
 EPD_Pin pins[4];
 
 void EpdDigitalWriteCallback(int pin_num, int value) {
@@ -80,9 +58,6 @@ void EpdDelayMsCallback(unsigned int delaytime) {
 }
 
 void EpdSpiTransferCallback(unsigned char data) {
-  //HAL_GPIO_WritePin((GPIO_TypeDef*)pins[CS_PIN].port, pins[CS_PIN].pin, GPIO_PIN_RESET);
-  //HAL_SPI_Transmit(&hspi1, &data, 1, 1000);
-  //HAL_GPIO_WritePin((GPIO_TypeDef*)pins[CS_PIN].port, pins[CS_PIN].pin, GPIO_PIN_SET);
   nrf_drv_epaper_spi_transfer(&data, 1);
 }
 
@@ -122,11 +97,6 @@ int EpdInitCallback(void) {
   gpio_out_config(RST_PIN);
   gpio_out_config(DC_PIN);
   gpio_in_config(BUSY_PIN);
-
-  /*pins[CS_PIN] = epd_cs_pin;
-  pins[RST_PIN] = epd_rst_pin;
-  pins[DC_PIN] = epd_dc_pin;
-  pins[BUSY_PIN] = epd_busy_pin;*/
   
   return 0;
 }
