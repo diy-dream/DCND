@@ -32,7 +32,7 @@
 #define CS_PIN           0
 #define DC_PIN           12
 #define RST_PIN          11
-#define BUSY_PIN         10
+#define BUSY_PIN         8
 
 // Pin level definition
 #define LOW             0

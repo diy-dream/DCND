@@ -112,7 +112,6 @@
 
 //#define DEMO_ENABLE
 
-
 BLE_NUS_DEF(m_nus, NRF_SDH_BLE_TOTAL_LINK_COUNT);                                   /**< BLE NUS service instance. */
 NRF_BLE_GATT_DEF(m_gatt);                                                           /**< GATT module instance. */
 NRF_BLE_QWR_DEF(m_qwr);                                                             /**< Context for the Queued Write module.*/
@@ -796,7 +795,7 @@ int main(void)
     conn_params_init();
 
     // Start execution.
-    printf("\nApp started\n");
+    printf("\nDCND started\n");
     NRF_LOG_INFO("\r\nDCND started.\r\n");
     NRF_LOG_FLUSH();
 
@@ -808,13 +807,11 @@ int main(void)
     }
     advertising_start();
 
-#ifdef DEMO_ENABLE   
     Paint_Init(&paint, frame_buffer, epd.width, epd.height);
     Paint_Clear(&paint, UNCOLORED);
     EPD_ClearFrame(&epd);
 
-    //timer_interrupt_init();
-
+#ifdef DEMO_ENABLE
 
     /* Draw something to the frame_buffer */
     /* For simplicity, the arguments are explicit numerical coordinates */
@@ -838,6 +835,8 @@ int main(void)
 
     NRF_LOG_INFO("Draw image\n");
     EPD_DisplayFrame(&epd, IMAGE_BUTTERFLY);
+
+    printf("Init finish\n");
 
     /*nrf_delay_ms(1000);
 

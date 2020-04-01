@@ -42,6 +42,7 @@
       <file file_name="../../../nordic_sdk/components/libraries/log/src/nrf_log_default_backends.c" />
       <file file_name="../../../nordic_sdk/components/libraries/log/src/nrf_log_frontend.c" />
       <file file_name="../../../nordic_sdk/components/libraries/log/src/nrf_log_str_formatter.c" />
+      <file file_name="../../../nordic_sdk/components/libraries/log/src/nrf_log_backend_uart.c" />
     </folder>
     <folder Name="nRF_Libraries">
       <file file_name="../../../nordic_sdk/components/libraries/button/app_button.c" />
