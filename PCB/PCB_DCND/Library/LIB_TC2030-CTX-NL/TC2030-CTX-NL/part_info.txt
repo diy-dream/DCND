@@ -1,0 +1,9 @@
+Manufacturer=Tag Connect
+PartNumber=TC2030-CTX-NL
+PartCategory=Connector
+PackageCategory=Other
+PinCount=6
+Version=1.2
+Released=2018-06-12 09:06:28
+Downloaded=2020-04-14 23:34:31
+3D=Y

@@ -1,0 +1,11 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'TC2030_CTX_NL'
+CLASS = IO
+{========================================================================================}
+:"MANUFACTURER_NAME", "MANUFACTURER_PART_NUMBER"= "PART_NUMBER", "JEDEC_TYPE", "PACK_TYPE", "MOUSER_PART_NUMBER", "MOUSER_PRICE/STOCK", "RS_PART_NUMBER", "RS_PRICE/STOCK", "DESCRIPTION", "DATASHEET", "HEIGHT";
+{========================================================================================}
+ "Tag Connect", "TC2030-CTX-NL" (!) = "", "TC2030MCPNL10", "Other", "", "", "", "", "6-Pin "No Legs" Cable with 10-pin micro-connector for Cortex processors", "http://www.tag-connect.com/Materials/TC2030-CTX.pdf", "18 mm"
+END_PART
+
+END.

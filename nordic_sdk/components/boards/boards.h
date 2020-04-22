@@ -85,6 +85,8 @@
   #include "custom_board.h"
 #elif defined(BOARD_SPARKFUN_NRF52832)
   #include "sparkfun_nrf52832_board.h"
+ #elif defined(BOARD_DCND_NRF52840)
+  #include "dcnd_nrf52840_board.h"
 #else
 #error "Board is not defined"
 
