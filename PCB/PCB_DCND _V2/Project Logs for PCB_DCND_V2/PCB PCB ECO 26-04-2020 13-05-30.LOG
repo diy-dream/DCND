@@ -1,0 +1,38 @@
+Removed Pin From Net: NetName=VDD_nRF Pin=J?-1
+Removed Pin From Net: NetName=SWDIO Pin=J?-2
+Removed Pin From Net: NetName=GND Pin=J?-3
+Removed Pin From Net: NetName=SWDCLK Pin=J?-4
+Removed Pin From Net: NetName=VBUS Pin=J?-5
+Added Component: Designator=J?(TC2050-IDC-NLFP)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "2nd source part number"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "2nd source Supplier"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Artikkelnr Noca"; Value = "N.A."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Artikkelnr Simpro"; Value = "N.A."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Assembly"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink1Description"; Value = "Datasheet"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink1URL"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink2Description"; Value = "Supplier link"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink2URL"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Footprint Doc"; Value = "TC2050-IDC-NLFP"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "HelpURL"; Value = "http://www.tag-connect.com/Materials/TC2050-IDC%20Datasheet.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "2012-11-21"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer"; Value = "Tag-Connect LLC"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer Part Number"; Value = "TC2050-IDC-NLFP"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Part Number"; Value = "TC2050-IDC-NLFP"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Part number IPS"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Pin Count"; Value = "10"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "2012-11-21"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Nordic Semiconductor"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier part number"; Value = "TC2050-IDC-NL-ND"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "TC2050-IDC"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=VDD_nRF Pin=J?-1
+Added Pin To Net: NetName=GDR Pin=J?-2
+Added Pin To Net: NetName=SWDIO Pin=J?-2
+Added Pin To Net: NetName=GND Pin=J?-3
+Added Pin To Net: NetName=RESE Pin=J?-3
+Added Pin To Net: NetName=NetC6_2 Pin=J?-4
+Added Pin To Net: NetName=SWDCLK Pin=J?-4
+Added Pin To Net: NetName=NetC7_2 Pin=J?-5
+Added Pin To Net: NetName=VBUS Pin=J?-5

@@ -1,0 +1,25 @@
+Added Component: Designator=TP?(Solderbridge)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "2nd source part number"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "2nd source Supplier"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Artikkelnr Noca"; Value = "N.A."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Artikkelnr Simpro"; Value = "N.A."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Assembly"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Datasheet"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Footprint Doc"; Value = "Solderbridge"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "2009-12-14"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer Part Number"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Note"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Part Number"; Value = "Solderbridge"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Part number IPS"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Pin Count"; Value = "2"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "2009-12-14"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Nordic Semiconductor"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier part number"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "Solderbridge"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=GND Pin=TP?-2
+Added Net: Name=GND
+Added Member To Class: ClassName=Sheet Member=Component TP? Solderbridge
+Added Room: Name=Sheet

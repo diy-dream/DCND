@@ -1,0 +1,27 @@
+Removed Pin From Net: NetName=VDD_nRF Pin=L1-1
+Removed Pin From Net: NetName=NetC16_2 Pin=L1-2
+Added Component: Designator=L1(TY-NR3015)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "2nd source part number"; Value = "188-5853"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "2nd source Supplier"; Value = "Farnell"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Artikkelnr Noca"; Value = "33029487"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Artikkelnr Simpro"; Value = "N.A."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Assembly"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink1Description"; Value = "Datasheet"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink2Description"; Value = "Supplier link"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Datasheet"; Value = "http://www.yuden.co.jp/ut/product/category/inductor/NR3015T2R2M.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Footprint Doc"; Value = "1212"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "2014-01-22"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer"; Value = "Taiyo Yuden"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer Part Number"; Value = "NR3015T2R2M"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Note"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Part Number"; Value = "NR3015-2µ2-1.5A-72mOhm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Part number IPS"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Pin Count"; Value = "2"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "2014-01-22"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Nordic Semiconductor"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier part number"; Value = "587-1648-1-ND"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "2.2µH"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=VDD_nRF Pin=L1-1
+Added Pin To Net: NetName=NetC16_2 Pin=L1-2

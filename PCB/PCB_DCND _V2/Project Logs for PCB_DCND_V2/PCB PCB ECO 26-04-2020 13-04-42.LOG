@@ -1,0 +1,39 @@
+Removed Pin From Net: NetName=VDD_nRF Pin=J?-1
+Removed Pin From Net: NetName=SWDIO Pin=J?-2
+Removed Pin From Net: NetName=SWDCLK Pin=J?-4
+Removed Pin From Net: NetName=VBUS Pin=J?-5
+Added Component: Designator=L?(INDC1608X06L)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "2nd source part number"; Value = "178-6105"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "2nd source Supplier"; Value = "Farnell"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Artikkelnr Noca"; Value = "33029314"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Artikkelnr Simpro"; Value = "N.A."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Assembly"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink1Description"; Value = "Datasheet"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink1URL"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink2Description"; Value = "Supplier link"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Footprint Doc"; Value = "0603"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "HelpURL"; Value = "http://www.yuden.co.jp/ut/product/pdf/elb2_e.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "2012-09-19"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer"; Value = "Taiyo Yuden"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer Part Number"; Value = "LBMF1608T100K"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Note"; Value = "LBMF1608T100K 10µH 80mA 0603"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Part Number"; Value = "L0603-10µ"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Part number IPS"; Value = "00000007794"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Pin Count"; Value = "2"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "2010-02-24"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Nordic Semiconductor"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier part number"; Value = "587-1714-1-ND"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "10µH"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=VDD_nRF Pin=J?-1
+Added Pin To Net: NetName=GDR Pin=J?-2
+Added Pin To Net: NetName=SWDIO Pin=J?-2
+Added Pin To Net: NetName=GND Pin=J?-3
+Added Pin To Net: NetName=NetC6_2 Pin=J?-4
+Added Pin To Net: NetName=SWDCLK Pin=J?-4
+Added Pin To Net: NetName=NetC7_2 Pin=J?-5
+Added Pin To Net: NetName=VBUS Pin=J?-5
+Added Pin To Net: NetName=NetL?_1 Pin=L?-1
+Added Pin To Net: NetName=VDD_nRF Pin=L?-2
+Added Member To Class: ClassName=Sheet Member=Component L? 10µH

@@ -1,6 +1,6 @@
 /**
  *  @filename   :   imagedata.h
- *  @brief      :   head file for imagedata.c
+*  @brief      :   head file for imagedata.c
  *
  *  Copyright (C) Waveshare     July 4 2017
  *
@@ -23,8 +23,12 @@
  * THE SOFTWARE.
  */
 
-extern const unsigned char IMAGE_BUTTERFLY[];
+extern const unsigned char IMG_KEEP_CLAM[];
+
+extern const unsigned char IMG_BATTERY_CHARGE[];
+
+extern const unsigned char IMG_BATTERY_LOW[];
+
+extern const unsigned char IMG_BATTERY_FULLY_CHARGE[];
 
 /* FILE END */
-
-

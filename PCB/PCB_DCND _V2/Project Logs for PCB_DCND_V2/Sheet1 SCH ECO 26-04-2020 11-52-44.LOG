@@ -1,0 +1,40 @@
+Remove Pin=D?-2 From Net=PREVGH
+Remove Pin=J3-1 From Net=SWDCLK
+Remove Pin=J3-3 From Net=SWDIO
+Remove Pin=J3-5 From Net=RST_nRF
+Remove Pin=J4-1 From Net=RST_SCREEN
+Remove Pin=J?-9 From Net=BUSY
+Remove Pin=J?-10 From Net=RST
+Remove Pin=J?-11 From Net=DC
+Remove Pin=J?-12 From Net=CS
+Remove Pin=J?-13 From Net=CLK
+Remove Pin=J?-14 From Net=DIN
+Remove Pin=P1-1 From Net=BUSY
+Remove Pin=P1-2 From Net=RST
+Remove Pin=P1-3 From Net=DC
+Remove Pin=P1-4 From Net=CS
+Remove Pin=P1-5 From Net=CLK
+Remove Pin=P1-6 From Net=DIN
+Remove Pin=R9-2 From Net=CHG
+Remove Pin=R11-2 From Net=PG
+Remove Pin=U1-7 From Net=VBAT_AN
+Remove Pin=U1-10 From Net=RST_SCREEN
+Remove Pin=U1-16 From Net=ISET2
+Remove Pin=U1-20 From Net=CHG
+Remove Pin=U1-22 From Net=PG
+Remove Pin=U1-26 From Net=RST_nRF
+Remove Pin=U1-28 From Net=BUSY
+Remove Pin=U1-30 From Net=RST
+Remove Pin=U1-32 From Net=DC
+Remove Pin=U1-34 From Net=CS
+Remove Pin=U1-36 From Net=CLK
+Remove Pin=U1-37 From Net=SWDIO
+Remove Pin=U1-38 From Net=DIN
+Remove Pin=U1-39 From Net=SWDCLK
+Remove Pin=U2-5 From Net=PG
+Remove Pin=U2-7 From Net=ISET2
+Remove Pin=U2-8 From Net=CHG
+Change Component Footprint: Designator=J? Old Footprint=MOLX-52435-2471 New Footprint=MOLX-52437-2471
+Change Component Comment: Designator=J? Old Comment=52435-2471 New Comment=52437-2471
+Change Pin Designator/Name:  Old Designator=J?-18 Old Name=18 New Designator =20 New Name=20
+Change Pin Designator/Name:  Old Designator=J?-20 Old Name=20 New Designator =9 New Name=9

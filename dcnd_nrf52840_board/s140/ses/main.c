@@ -93,6 +93,15 @@
 #include "epdpaint.h"
 #include "DCND.h"
 
+#include "nrf_gpiote.h"
+#include "nrf_gpio.h"
+#include "nrf_drv_gpiote.h"
+
+#define PIN_CHG         12 //P0.12
+#define PIN_PG          7  //P0.07
+#define PIN_ISET2       8  //P0.08
+#define PIN_CLR_SCREEN  30 //P0.30 
+
 #define COLORED     0
 #define UNCOLORED   1
 
@@ -486,7 +495,7 @@ void print_character_on_screen(uint8_t * p_data)
     int i = 0;
 
     //Clear the frame_buffer
-    Paint_Clear(&paint, UNCOLORED);
+    Paint_Clear(&paint, COLORED);
 
     p_data[strlen(p_data) - 1] = '\0';
 
@@ -499,7 +508,7 @@ void print_character_on_screen(uint8_t * p_data)
         //Print lines except the last one
         for(i = 0; i < MAX_LINE; i++){
             strncpy(line, p_data + (MAX_LINE_CHARACTER * i), MAX_LINE_CHARACTER);
-            Paint_DrawStringAt(&paint, 0, Y_INIT_POSITION + (Y_SPACE * line_counter), line, &Font24, COLORED);
+            Paint_DrawStringAt(&paint, 0, Y_INIT_POSITION + (Y_SPACE * line_counter), line, &Font24, UNCOLORED);
             line_counter++;
         }
     }
@@ -508,7 +517,7 @@ void print_character_on_screen(uint8_t * p_data)
         //Print lines except the last one
         for(i = 0; i < max; i++){
             strncpy(line, p_data + (MAX_LINE_CHARACTER * i), MAX_LINE_CHARACTER);
-            Paint_DrawStringAt(&paint, 0, Y_INIT_POSITION + (Y_SPACE * line_counter), line, &Font24, COLORED);
+            Paint_DrawStringAt(&paint, 0, Y_INIT_POSITION + (Y_SPACE * line_counter), line, &Font24, UNCOLORED);
             line_counter++;
         }
     
@@ -516,7 +525,7 @@ void print_character_on_screen(uint8_t * p_data)
         char end_line[MAX_LINE_CHARACTER + 1];
         memset(end_line, '\0', sizeof(end_line));
         strncpy(end_line, p_data + (MAX_LINE_CHARACTER * i), strlen(p_data) - (MAX_LINE_CHARACTER * i));
-        Paint_DrawStringAt(&paint, 0, Y_INIT_POSITION + (Y_SPACE * line_counter), end_line, &Font24, COLORED);
+        Paint_DrawStringAt(&paint, 0, Y_INIT_POSITION + (Y_SPACE * line_counter), end_line, &Font24, UNCOLORED);
         line_counter++;
     }
     
@@ -609,12 +618,13 @@ static void nus_data_handler(ble_nus_evt_t * p_evt)
                 char str[MAX_LINE_CHARACTER * MAX_LINE];
                 memset(str, '\0', sizeof(str));
                 
-                strcpy(str, p_evt->params.rx_data.p_data);
+                //strcpy(str, p_evt->params.rx_data.p_data);
+                strncpy(str, p_evt->params.rx_data.p_data, p_evt->params.rx_data.length);
                 
                 //remove bad caractere
                 /*for(int i = 0; i < strlen(str); i++)
                 {
-                    if(str[i] == '\n')
+                    if(str[i] == '\')
                     {
                         str[i] = '\0';
                         break;
@@ -1007,6 +1017,137 @@ static void advertising_start(void)
 }
 
 
+/*
+ * TODO
+ */
+void output_voltage_setup(void)
+{
+    // Configure UICR_REGOUT0 register only if it is set to default value.
+    if ((NRF_UICR->REGOUT0 & UICR_REGOUT0_VOUT_Msk) ==
+        (UICR_REGOUT0_VOUT_DEFAULT << UICR_REGOUT0_VOUT_Pos))
+    {
+        NRF_NVMC->CONFIG = NVMC_CONFIG_WEN_Wen;
+        while (NRF_NVMC->READY == NVMC_READY_READY_Busy){}
+
+        NRF_UICR->REGOUT0 = (NRF_UICR->REGOUT0 & ~((uint32_t)UICR_REGOUT0_VOUT_Msk)) |
+                            (UICR_REGOUT0_VOUT_3V3 << UICR_REGOUT0_VOUT_Pos);
+
+        NRF_NVMC->CONFIG = NVMC_CONFIG_WEN_Ren;
+        while (NRF_NVMC->READY == NVMC_READY_READY_Busy){}
+
+        // System reset is needed to update UICR registers.
+        NVIC_SystemReset();
+    }
+}
+
+
+static bool pin_chg_is_set = false;
+static bool pin_pg_is_set = false;
+/**@brief TODO
+ */
+void in_pin_chg_handler(nrf_drv_gpiote_pin_t pin, nrf_gpiote_polarity_t action)
+{
+    if(nrf_drv_gpiote_in_is_set(pin))
+    {
+        pin_chg_is_set = true;
+        NRF_LOG_INFO("PIN CHG 1 TTL");
+
+        if(!pin_pg_is_set)
+        {
+            EPD_DisplayFrame(&epd, IMG_BATTERY_FULLY_CHARGE);
+            NRF_LOG_INFO("Battery charge finish");
+        }
+    }
+    else
+    {
+        pin_chg_is_set = false;
+        NRF_LOG_INFO("PIN CHG 0 TTL");
+
+        if(!pin_pg_is_set)
+        {
+            EPD_DisplayFrame(&epd, IMG_BATTERY_CHARGE);
+            NRF_LOG_INFO("Battery charge start");
+        }
+    }
+}
+
+
+/**@brief TODO
+ */
+void in_pin_pg_handler(nrf_drv_gpiote_pin_t pin, nrf_gpiote_polarity_t action)
+{
+    if(nrf_drv_gpiote_in_is_set(pin))
+    {
+        pin_pg_is_set = true;
+        NRF_LOG_INFO("PIN PG 1 TTL");
+    }
+    else
+    {
+        pin_pg_is_set = false;
+        NRF_LOG_INFO("PIN PG 0 TTL");
+    }
+}
+
+
+/**@brief TODO
+ */
+void bq24090_init(void)
+{
+    ret_code_t err_code;
+
+    // Configure PIN_CHG in input of BQ24090.
+    nrf_drv_gpiote_in_config_t pin_chg_in_config = GPIOTE_CONFIG_IN_SENSE_TOGGLE(false);
+    pin_chg_in_config.pull = NRF_GPIO_PIN_NOPULL;
+    
+    err_code = nrf_drv_gpiote_in_init(PIN_CHG, &pin_chg_in_config, in_pin_chg_handler);
+    APP_ERROR_CHECK(err_code);
+
+    nrf_drv_gpiote_in_event_enable(PIN_CHG, true);
+
+    // Configure PIN_PG in input of BQ24090.
+    nrf_drv_gpiote_in_config_t pin_pg_in_config = GPIOTE_CONFIG_IN_SENSE_TOGGLE(false);
+    pin_pg_in_config.pull = NRF_GPIO_PIN_NOPULL;
+    
+    err_code = nrf_drv_gpiote_in_init(PIN_PG, &pin_pg_in_config, in_pin_pg_handler);
+    APP_ERROR_CHECK(err_code);
+
+    nrf_drv_gpiote_in_event_enable(PIN_PG, true);
+  
+    // Configure PIN_ISET2 in output of BQ24090.
+    nrf_drv_gpiote_out_config_t pin_iset2_out_config = GPIOTE_CONFIG_OUT_SIMPLE(false);
+    err_code = nrf_drv_gpiote_out_init(PIN_ISET2, &pin_iset2_out_config);
+    APP_ERROR_CHECK(err_code);
+
+    nrf_drv_gpiote_out_set(PIN_ISET2);
+}
+
+
+/**@brief TODO
+ */
+void in_pin_clr_screen_handler(nrf_drv_gpiote_pin_t pin, nrf_gpiote_polarity_t action)
+{
+    NRF_LOG_INFO("Clear the screen");
+    EPD_DisplayFrame(&epd, IMG_KEEP_CLAM);
+}
+
+
+/**@brief TODO
+ */
+void clear_button_init(void)
+{
+    ret_code_t err_code;
+
+    // Configure PIN_CLR_SCREEN in input.
+    nrf_drv_gpiote_in_config_t pin_clr_screen_in_config = GPIOTE_CONFIG_IN_SENSE_HITOLO(false);
+    pin_clr_screen_in_config.pull = NRF_GPIO_PIN_PULLUP;
+    
+    err_code = nrf_drv_gpiote_in_init(PIN_CLR_SCREEN, &pin_clr_screen_in_config, in_pin_clr_screen_handler);
+    APP_ERROR_CHECK(err_code);
+
+    nrf_drv_gpiote_in_event_enable(PIN_CLR_SCREEN, true);
+}
+
+
 /**@brief Application main function.
  */
 int main(void)
@@ -1014,12 +1155,18 @@ int main(void)
     uint32_t err_code;
     bool erase_bonds;
 
+    if (NRF_POWER->MAINREGSTATUS &
+       (POWER_MAINREGSTATUS_MAINREGSTATUS_High << POWER_MAINREGSTATUS_MAINREGSTATUS_Pos))
+    {
+        output_voltage_setup();
+    }
+
     // Initialize.
     log_init();
 
     // Initialize the async SVCI interface to bootloader before any interrupts are enabled.
-    /*err_code = ble_dfu_buttonless_async_svci_init();
-    APP_ERROR_CHECK(err_code);*/
+    err_code = ble_dfu_buttonless_async_svci_init();
+    APP_ERROR_CHECK(err_code);
 
     timers_init();
     power_management_init();
@@ -1046,10 +1193,16 @@ int main(void)
       NRF_LOG_INFO("e-Paper init sucess");
     }  
 
+    /* Battery Lipo Charger */
+    bq24090_init();
+
+    /*TODO*/
+    clear_button_init();
+
     Paint_Init(&paint, frame_buffer, epd.width, epd.height);
     Paint_Clear(&paint, UNCOLORED);
 
-    EPD_DisplayFrame(&epd, IMAGE_BUTTERFLY);
+    EPD_DisplayFrame(&epd, IMG_KEEP_CLAM);
 
     NRF_LOG_INFO("DCND enter in idle state");
 

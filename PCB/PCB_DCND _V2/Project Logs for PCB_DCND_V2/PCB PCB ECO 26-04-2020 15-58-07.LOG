@@ -1,0 +1,3 @@
+Removed Pin From Net: NetName=VBAT Pin=SB1-2
+Removed Member From Class: ClassName=Sheet Member=SB1
+Added Pin To Net: NetName=VBAT Pin=U1-23

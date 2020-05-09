@@ -1,0 +1,12 @@
+Added Pin To Net: NetName=GDR Pin=J4-2
+Added Pin To Net: NetName=RESE Pin=J4-3
+Added Pin To Net: NetName=BUSY Pin=J4-9
+Added Pin To Net: NetName=RST_E_PAPER Pin=J4-10
+Added Pin To Net: NetName=DC Pin=J4-11
+Added Pin To Net: NetName=CS Pin=J4-12
+Added Pin To Net: NetName=CLK Pin=J4-13
+Added Pin To Net: NetName=DIN Pin=J4-14
+Added Pin To Net: NetName=VDD_nRF Pin=J4-16
+Added Pin To Net: NetName=GND Pin=J4-17
+Added Pin To Net: NetName=BS Pin=J4-8
+Added Net: Name=BS

@@ -1,0 +1,11 @@
+Removed Member From Class: ClassName=Sheet Member=J?
+Change Component Designator: OldDesignator=J? NewDesignator=J3
+Change Component Designator: OldDesignator=J? NewDesignator=J4
+Change Component Designator: OldDesignator=L? NewDesignator=L2
+Change Component Designator: OldDesignator=R? NewDesignator=R1
+Change Component Designator: OldDesignator=R? NewDesignator=R4
+Change Component Designator: OldDesignator=SB? NewDesignator=SB1
+Change Component Designator: OldDesignator=SW? NewDesignator=SW2
+Change Net Name : Old Net Name=NetL?_1 New Net Name=NetL2_1
+Added Member To Class: ClassName=Sheet Member=Component J3 TC2050-IDC
+Added Member To Class: ClassName=Sheet Member=Component R4 10 kOhms

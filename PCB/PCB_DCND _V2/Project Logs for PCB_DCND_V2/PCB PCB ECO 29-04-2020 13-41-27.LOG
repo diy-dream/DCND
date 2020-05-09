@@ -1,0 +1,35 @@
+Added Component: Designator=D?(SOT190P230X110-4L)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "2nd source part number"; Value = "152-4157"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "2nd source Supplier"; Value = "Farnell"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Artikkelnr Noca"; Value = "10069015"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Artikkelnr Simpro"; Value = "N.A."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Assembly"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink1Description"; Value = "Datasheet"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink1URL"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink2Description"; Value = "Supplier link"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink2URL"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Footprint Doc"; Value = "SOT-143B"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "HelpURL"; Value = "http://www.farnell.com/datasheets/109718.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "2017-11-09"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer"; Value = "NXP"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer Part Number"; Value = "PRTR5V0U2X"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Note"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Part Number"; Value = "PRTR5V0U2X"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Part number IPS"; Value = "00000009951"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Pin Count"; Value = "4"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "2012-06-11"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Nordic Semiconductor"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier part number"; Value = "568-4140-1-ND"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "PRTR5V0U2X"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=GND Pin=D?-1
+Added Pin To Net: NetName=D- Pin=D?-2
+Added Pin To Net: NetName=D+ Pin=D?-3
+Added Pin To Net: NetName=VBUS Pin=D?-4
+Added Member To Class: ClassName=Sheet Member=Component C? 0.1µF
+Added Member To Class: ClassName=Sheet Member=Component C? 10000pF
+Added Member To Class: ClassName=Sheet Member=Component C? 4.7µF
+Added Member To Class: ClassName=Sheet Member=Component D? PRTR5V0U2X
+Added Member To Class: ClassName=Sheet Member=Component L? 120R/0.85A
+Added Member To Class: ClassName=Sheet1 Member=Component R? 0 Ohms

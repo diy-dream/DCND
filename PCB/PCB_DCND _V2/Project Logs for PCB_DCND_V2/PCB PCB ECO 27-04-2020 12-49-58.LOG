@@ -1,0 +1,33 @@
+Added Pin To Net: NetName=VBAT_AN Pin=U1-7
+Added Pin To Net: NetName=RST_SCREEN Pin=U1-10
+Added Pin To Net: NetName=RST_nRF Pin=U1-26
+Added Pin To Net: NetName=BUSY Pin=U1-28
+Added Net: Name=BUSY
+Added Pin To Net: NetName=CHG Pin=R9-2
+Added Pin To Net: NetName=CHG Pin=U1-20
+Added Pin To Net: NetName=CHG Pin=U2-8
+Added Net: Name=CHG
+Added Pin To Net: NetName=CLK Pin=U1-36
+Added Net: Name=CLK
+Added Pin To Net: NetName=CS Pin=U1-34
+Added Net: Name=CS
+Added Pin To Net: NetName=DC Pin=U1-32
+Added Net: Name=DC
+Added Pin To Net: NetName=DIN Pin=U1-38
+Added Net: Name=DIN
+Added Pin To Net: NetName=ISET2 Pin=U1-16
+Added Pin To Net: NetName=ISET2 Pin=U2-7
+Added Net: Name=ISET2
+Added Pin To Net: NetName=PG Pin=R11-2
+Added Pin To Net: NetName=PG Pin=U1-22
+Added Pin To Net: NetName=PG Pin=U2-5
+Added Net: Name=PG
+Added Pin To Net: NetName=RST_E_PAPER Pin=U1-30
+Added Net: Name=RST_E_PAPER
+Added Pin To Net: NetName=SWCLK Pin=J3-4
+Added Net: Name=SWCLK
+Added Pin To Net: NetName=SWDCLK Pin=U1-39
+Added Net: Name=SWDCLK
+Added Pin To Net: NetName=SWDIO Pin=J3-2
+Added Pin To Net: NetName=SWDIO Pin=U1-37
+Added Net: Name=SWDIO

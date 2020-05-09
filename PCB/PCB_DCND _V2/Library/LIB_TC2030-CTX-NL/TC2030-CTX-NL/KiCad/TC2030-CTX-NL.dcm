@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP TC2030-CTX-NL
+D 6-Pin "No Legs" Cable with 10-pin micro-connector for Cortex processors
+K
+F http://www.tag-connect.com/Materials/TC2030-CTX.pdf
+$ENDCMP
+#
+#End Doc Library
