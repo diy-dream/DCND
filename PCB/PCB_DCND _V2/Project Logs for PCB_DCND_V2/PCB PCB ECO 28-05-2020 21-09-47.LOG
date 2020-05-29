@@ -1,0 +1,5 @@
+Removed Pin From Net: NetName=GND Pin=U1-27
+Added Pin To Net: NetName=VBUS_nRF Pin=U1-27
+Added Member To Class: ClassName=Sheet Member=Component C21 0.1µF
+Added Member To Class: ClassName=Sheet Member=Component L3 120R/0.85A
+Added Member To Class: ClassName=Sheet1 Member=Component R12 10 kOhms

@@ -1,0 +1,15 @@
+Change Component Designator: OldDesignator=C? NewDesignator=C18
+Change Component Designator: OldDesignator=C? NewDesignator=C19
+Change Component Designator: OldDesignator=C? NewDesignator=C20
+Change Component Designator: OldDesignator=C? NewDesignator=C21
+Change Component Designator: OldDesignator=D? NewDesignator=D4
+Change Component Designator: OldDesignator=L? NewDesignator=L3
+Change Component Designator: OldDesignator=L? NewDesignator=L4
+Change Component Designator: OldDesignator=R? NewDesignator=R4
+Change Component Designator: OldDesignator=R? NewDesignator=R12
+Change Component Designator: OldDesignator=SW? NewDesignator=SW2
+Added Member To Class: ClassName=Sheet Member=Component C18 0.1µF
+Added Member To Class: ClassName=Sheet Member=Component C19 10000pF
+Added Member To Class: ClassName=Sheet Member=Component C20 4.7µF
+Added Member To Class: ClassName=Sheet Member=Component L4 120R/0.85A
+Added Member To Class: ClassName=Sheet1 Member=Component R4 0 Ohms

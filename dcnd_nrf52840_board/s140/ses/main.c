@@ -155,6 +155,7 @@ NRF_BLE_GATT_DEF(m_gatt);                                                       
 NRF_BLE_QWR_DEF(m_qwr);                                                             /**< Context for the Queued Write module.*/
 BLE_ADVERTISING_DEF(m_advertising);                                                 /**< Advertising module instance. */
 APP_TIMER_DEF(m_battery_timer_id);
+APP_TIMER_DEF(m_push_btn_timer_id);
 
 static uint16_t   m_conn_handle          = BLE_CONN_HANDLE_INVALID;                 /**< Handle of the current connection. */
 static uint16_t   m_ble_nus_max_data_len = BLE_GATT_ATT_MTU_DEFAULT - 3;            /**< Maximum length of data (in bytes) that can be transmitted to the peer by the Nordic UART service module. */
@@ -428,6 +429,30 @@ static void battery_level_meas_timeout_handler(void * p_context)
 }
 
 
+static bool btn_timer_is_set = false;
+
+/**@brief Function for handling the push button timer timeout, long or short.
+ *
+ * @details TODO.
+ *
+ * @param[in] p_context   Pointer used for passing some arbitrary information (context) from the
+ *                        app_start_timer() call to the timeout handler.
+ */
+static void button_timeout_handler(void * p_context)
+{
+    UNUSED_PARAMETER(p_context);
+
+    if(!nrf_drv_gpiote_in_is_set(PIN_CLR_SCREEN)){
+        NVIC_SystemReset();
+    }else{
+        NRF_LOG_INFO("Clear the screen");
+        EPD_DisplayFrame(&epd, IMG_PAS_DE_NOUVEAU_MSG);
+    }
+
+    btn_timer_is_set = false;
+}
+
+
 /**@brief Function for the Timer initialization.
  *
  * @details Initializes the timer module. This creates and starts application timers.
@@ -444,6 +469,12 @@ static void timers_init(void)
     err_code = app_timer_create(&m_battery_timer_id,
                                 APP_TIMER_MODE_REPEATED,
                                 battery_level_meas_timeout_handler);
+
+    // Create clear button timer.
+    err_code = app_timer_create(&m_push_btn_timer_id,
+                                APP_TIMER_MODE_SINGLE_SHOT,
+                                button_timeout_handler);
+
     APP_ERROR_CHECK(err_code);
 }
 
@@ -503,6 +534,26 @@ void print_character_on_screen(uint8_t * p_data)
     char line[MAX_LINE_CHARACTER + 1];
     memset(line, '\0', sizeof(line));
 
+    //Function to remove/replace all bad the characters
+    for(int counter = 0; counter < strlen(p_data); counter++){
+        if(p_data[counter] == '\n' || p_data[counter] == '\r' || p_data[counter] == '\t'){
+            p_data[counter] = 0x20; //0x20 = SPACE
+        }else if(p_data[counter] == 0xC3){
+            //Special character
+            if(p_data[counter+1] == 0xA9 || p_data[counter+1] == 0xA8 || p_data[counter+1] == 0xAB || p_data[counter+1] == 0xAA){ // 0xA9 = é, 0xA8 = è, 0xAB = ë, 0xAA = ê
+                p_data[counter] = 0x65; //0x65 = e
+            }else{
+                //Unknow character
+                p_data[counter] = 0x3F; //0x3F = ?
+            }
+            for(int cnt_move = counter+1; cnt_move < strlen(p_data); cnt_move++){
+                p_data[cnt_move] = p_data[cnt_move+1];
+            }
+        }
+    }
+
+    // ******* //
+
     if(max > MAX_LINE)
     {
         //Print lines except the last one
@@ -552,6 +603,12 @@ void dcnd_protocol_acknowledge(uint8_t * p_data)
 }
 
 
+static char imageMsg[15000];
+//static uint8_t * imageMsg;
+static uint16_t indexImg = 0;
+static uint16_t indexError = 0;
+
+
 /**@brief Function for handling the data from the Nordic UART Service.
  *
  * @details This function will process the data received from the Nordic UART BLE Service and send
@@ -565,7 +622,7 @@ static void nus_data_handler(ble_nus_evt_t * p_evt)
 
     if (p_evt->type == BLE_NUS_EVT_RX_DATA)
     {
-        uint32_t err_code;
+        uint32_t err_code = NRF_SUCCESS;
 
         NRF_LOG_DEBUG("Received data from BLE NUS. Writing data on UART.");
         NRF_LOG_HEXDUMP_DEBUG(p_evt->params.rx_data.p_data, p_evt->params.rx_data.length);
@@ -598,7 +655,8 @@ static void nus_data_handler(ble_nus_evt_t * p_evt)
             {
                 NRF_LOG_INFO("RECEIVED_DATA_IMG\n");
                 dcnd.state = RECEIVED_DATA_IMG;
-                memset (dcnd.message, '\0', MAX_LINE_CHARACTER * MAX_LINE);
+                //memset (imageMsg, 0x00, 15000);
+                //indexImg = 0;
             }
         }
         else if(dcnd.state == RECEIVED_DATA_MSG)
@@ -609,6 +667,8 @@ static void nus_data_handler(ble_nus_evt_t * p_evt)
                 NRF_LOG_INFO("IDLE_STATE\n");
                 NRF_LOG_INFO("MSG_RECEIVED\n");
                 dcnd.state = IDLE_STATE;
+
+                NRF_LOG_HEXDUMP_DEBUG(dcnd.message, strlen(dcnd.message));
                 print_character_on_screen(dcnd.message);
 
                 dcnd_protocol_acknowledge("MSG_RECEIVED ACKNOWLEDGE\n");
@@ -621,15 +681,6 @@ static void nus_data_handler(ble_nus_evt_t * p_evt)
                 //strcpy(str, p_evt->params.rx_data.p_data);
                 strncpy(str, p_evt->params.rx_data.p_data, p_evt->params.rx_data.length);
                 
-                //remove bad caractere
-                /*for(int i = 0; i < strlen(str); i++)
-                {
-                    if(str[i] == '\')
-                    {
-                        str[i] = '\0';
-                        break;
-                    }
-                };*/
                 strcat(dcnd.message, str);
                 NRF_LOG_INFO("dcnd.message = %s", dcnd.message);
                 NRF_LOG_INFO("str = %s", str);
@@ -642,10 +693,50 @@ static void nus_data_handler(ble_nus_evt_t * p_evt)
             if(dcnd.message_types == STOP_TRANSFER_IMG)
             {
                 NRF_LOG_INFO("IDLE_STATE\n");
+                NRF_LOG_INFO("IMG_RECEIVED\n");
                 dcnd.state = IDLE_STATE;
-                //TODO
+                indexImg = 0;
+                NRF_LOG_INFO("Image msg = %s", imageMsg);
+                EPD_DisplayFrame(&epd, imageMsg);
             }else{
-                //TODO
+                NRF_LOG_INFO("IMG_RECEIVED_IN_PROGRESS\n");
+
+                /*char strTemp[100];
+                memset(strTemp, '\0', sizeof(strTemp));
+
+                strncpy(strTemp, p_evt->params.rx_data.p_data, p_evt->params.rx_data.length);
+                strcat(imageMsg, strTemp);*/
+
+                char strTmp[2];
+                //memset(strTmp, '\0', sizeof(strTmp));
+
+                uint8_t number;
+
+                NRF_LOG_INFO("indexImg =  %d", indexImg);
+
+                for(int i = 0; i < (p_evt->params.rx_data.length - 1); i++){
+                    strTmp[0] = p_evt->params.rx_data.p_data[i];
+                    strTmp[1] = p_evt->params.rx_data.p_data[++i];
+
+                    number = (uint8_t)strtol((const char *)&strTmp, NULL, 16);
+
+                    imageMsg[indexImg] = number;
+
+                    /*if(IMG_TEST[indexImg] != imageMsg[indexImg]){
+                        NRF_LOG_INFO("Error IMG_TEST[%d] != imageMsg[%d]", indexImg, indexImg);
+                        NRF_LOG_INFO("Error         0x%x != 0x%x", IMG_TEST[indexImg], imageMsg[indexImg]);
+                        indexError++;
+                        if(indexError > 64){
+                            APP_ERROR_CHECK(NRF_ERROR_INVALID_DATA);
+                        }
+                    }*/
+        
+                    indexImg++;
+                }
+
+                NRF_LOG_INFO("Data length = %d", p_evt->params.rx_data.length);
+                NRF_LOG_INFO("Data raw = %s", p_evt->params.rx_data.p_data);
+                NRF_LOG_INFO("Image strTemp = %s", imageMsg);
             }  
         }
     }
@@ -1126,8 +1217,14 @@ void bq24090_init(void)
  */
 void in_pin_clr_screen_handler(nrf_drv_gpiote_pin_t pin, nrf_gpiote_polarity_t action)
 {
-    NRF_LOG_INFO("Clear the screen");
-    EPD_DisplayFrame(&epd, IMG_KEEP_CLAM);
+    ret_code_t err_code;
+
+    if(!btn_timer_is_set){
+        err_code = app_timer_start(m_push_btn_timer_id, 5000, NULL); //2s 
+        APP_ERROR_CHECK(err_code);
+
+        btn_timer_is_set = true;
+    }
 }
 
 
@@ -1202,7 +1299,7 @@ int main(void)
     Paint_Init(&paint, frame_buffer, epd.width, epd.height);
     Paint_Clear(&paint, UNCOLORED);
 
-    EPD_DisplayFrame(&epd, IMG_KEEP_CLAM);
+    EPD_DisplayFrame(&epd, IMG_PAS_DE_NOUVEAU_MSG);
 
     NRF_LOG_INFO("DCND enter in idle state");
 

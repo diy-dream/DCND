@@ -25,10 +25,14 @@
 
 extern const unsigned char IMG_KEEP_CLAM[];
 
+extern const unsigned char IMG_PAS_DE_NOUVEAU_MSG[];
+
 extern const unsigned char IMG_BATTERY_CHARGE[];
 
 extern const unsigned char IMG_BATTERY_LOW[];
 
 extern const unsigned char IMG_BATTERY_FULLY_CHARGE[];
+
+extern const unsigned char IMG_TEST[];
 
 /* FILE END */

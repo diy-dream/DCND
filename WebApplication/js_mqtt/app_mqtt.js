@@ -23,6 +23,8 @@ var websocketclient = {
     'subscriptions': [],
     'messages': [],
     'connected': false,
+	'stringValue': "",
+	'stringValue2': "",
 
     'connect': function () {
 
@@ -238,7 +240,7 @@ var websocketclient = {
 			websocketclient.connect();
         }
 		
-		var startImg = new Messaging.Message("START_TRANSFER_IMG");
+		var startImg = new Messaging.Message("START_TRANSFER_IMG\n");
 		startImg.destinationName = "/topic/dcnd/msg";
         startImg.qos = 0;
         startImg.retained = false;
@@ -266,7 +268,7 @@ var websocketclient = {
 			if(i )
 		}*/
 		
-		var stopImg = new Messaging.Message("STOP_TRANSFER_IMG");
+		var stopImg = new Messaging.Message("STOP_TRANSFER_IMG\n");
 		stopImg.destinationName = "/topic/dcnd/msg";
         stopImg.qos = 0;
         stopImg.retained = false;
@@ -282,41 +284,63 @@ var websocketclient = {
 					
 					var i, output_index, subMsg, temp;
 					var startIndex, lengh;
-					temp = 35;
 					
-					lengh = 900;
+					temp = 35;
+					lengh = 192;
+					startIndex = 0;
 					
 					console.log("Size of message = " + output_string.length);
 					console.log("Size of each message = " + lengh);
+					console.log("Full message = " + websocketclient.stringValue2);
 					
-					for (i = 0; i < (output_string.length/900); i++) {
-						temp = temp + (50/(output_string.length/900));
-						websocketclient.moveProgressBarImg(temp);
-						startIndex = 900*i;
+					for (i = 0; i < (output_string.length/lengh); i++) {
+					//for (i = 0; i < 3; i++) {
+						
+						console.log("ProgressBarImg = " + temp);
+						
+						temp = temp + (50/(output_string.length/lengh));
+						websocketclient.moveProgressBarImg(50);
+						startIndex = lengh*i;
 						
 						console.log("start index = " + startIndex);
 						
 						var subMsg = output_string.substr(startIndex, lengh);
+						var subMsg2 = websocketclient.stringValue.substr(startIndex*3, 192);
 						
-						console.log(subMsg);
+						console.log("Raw message = " + subMsg);
+						console.log("Raw modify message = " + subMsg2);
 						
-						var imgMsg = new Messaging.Message(subMsg);
+						var imgMsg = new Messaging.Message(subMsg+"\n");
 						imgMsg.destinationName = "/topic/dcnd/msg";
 						imgMsg.qos = 0;
 						imgMsg.retained = false;
 						
 						this.client.send(imgMsg);
 						
-						websocketclient.sleep(400);
-						//await new Promise(r => setTimeout(r, 1000));
+						websocketclient.sleep(250);
 					}
+					
+					/*startIndex = 900*(i+1);
+					
+					console.log("start index = " + startIndex);
+					
+					var subMsg = output_string.substr(startIndex, output_string.length-startIndex);
+						
+					console.log(subMsg);
+					
+					var imgMsg = new Messaging.Message(subMsg+"\n");
+					imgMsg.destinationName = "/topic/dcnd/msg";
+					imgMsg.qos = 0;
+					imgMsg.retained = false;
+					
+					this.client.send(imgMsg);*/
 					
 					//this.client.send(imagesMsg);
 					setTimeout(() => {
 						websocketclient.moveProgressBarImg(100);
 						console.log("STOP_TRANSFER_IMG");
 						this.client.send(stopImg);
-					}, 8000);
+					}, 1000);
 				}, 1000);
 			}, 1000);
 		}
@@ -325,15 +349,54 @@ var websocketclient = {
 			websocketclient.moveProgressBarImg(35);
 			console.log("START_TRANSFER_IMG");
 			this.client.send(startImg);
+
 			setTimeout(() => {
-				websocketclient.moveProgressBarImg(70);
-				console.log(imagesMsg);
-				this.client.send("imagesMsg");
+				console.log("imagesMsg");
+				
+				var i, output_index, subMsg, temp;
+				var startIndex, lengh;
+				
+				lengh = 192;
+				temp = 35;
+				startIndex = 0;
+				
+				console.log("Size of message = " + output_string.length);
+				console.log("Size of each message = " + lengh);
+				console.log("Full message = " + websocketclient.stringValue2);
+				
+				for (i = 0; i < (output_string.length/lengh); i++) {
+				//for (i = 0; i < 3; i++) {
+					
+					console.log("ProgressBarImg = " + temp);
+					
+					temp = temp + (50/(output_string.length/lengh));
+					websocketclient.moveProgressBarImg(50);
+					startIndex = lengh*i;
+					
+					console.log("start index = " + startIndex);
+					
+					var subMsg = output_string.substr(startIndex, lengh);
+					var subMsg2 = websocketclient.stringValue.substr(startIndex*3, 192);
+					
+					console.log("Raw message = " + subMsg);
+					console.log("Raw modify message = " + subMsg2);
+					
+					var imgMsg = new Messaging.Message(subMsg+"\n");
+					imgMsg.destinationName = "/topic/dcnd/msg";
+					imgMsg.qos = 0;
+					imgMsg.retained = false;
+					
+					this.client.send(imgMsg);
+					
+					websocketclient.sleep(250);
+				}
+				
+				//this.client.send(imagesMsg);
 				setTimeout(() => {
 					websocketclient.moveProgressBarImg(100);
-					console.log(stopImg);
-					this.client.send("STOP_TRANSFER_IMG");
-				}, 100000);
+					console.log("STOP_TRANSFER_IMG");
+					this.client.send(stopImg);
+				}, 1000);
 			}, 1000);
 		}
     },

@@ -8,6 +8,8 @@ var ConversionFunctions = {
 
 		var byteIndex = 7;
 		var number = 0;
+		
+		websocketclient.stringValue = "";
 
 		// format is RGBA, so move 4 steps per pixel
 		for(var index = 0; index < data.length; index += 4){
@@ -29,14 +31,21 @@ var ConversionFunctions = {
 
 			// When we have the complete 8 bits, combine them into a hex value
 			if(byteIndex < 0){
-				//var byteSet = number.toString(16);
-				var byteSet = number.toString(10);
-				//if(byteSet.length == 1){ byteSet = "0"+byteSet; }
-				//var b = "0x"+byteSet;
+				var byteSet = number.toString(16);
+				//var byteSet = number.toString(10);
+				//var byteSet = number.toString(7);
+				//var byteSet = String.fromCharCode(number);
+				//var byteSet2 = number.toString(10);
+				if(byteSet.length == 1){ byteSet = "0"+byteSet; }
+				var a = "0x"+byteSet;
 				var b = byteSet;
+				var c = byteSet;
 				//output_string += b + ", ";
-				output_string += b + ",";
-				//output_string += number;
+				//output_string += b + ",";
+				//output_string += b + " ";
+				output_string += b;
+				websocketclient.stringValue2 += a + ", ";
+				websocketclient.stringValue += c + " ";
 				output_index++;
 				/*if(output_index >= 64){
 					output_string += "\n";
@@ -45,7 +54,9 @@ var ConversionFunctions = {
 				number = 0;
 				byteIndex = 7;
 			}
+			
 		}
+		
 		return output_string;
 	},
 
@@ -574,8 +585,11 @@ function handleImageSelection(evt){
 					canvas.width = widthEPaper;
 					canvas.height = heightEPaper;
 					canvasContainer.appendChild(canvas);
-
-					images.push(img, canvas, file.name.split(".")[0]);
+					
+					//images = new Images();
+					if(images.length() == 0)
+						images.push(img, canvas, file.name.split(".")[0]);
+					
 					place_image(images.last());
 					allSameSize(images, files);
 				};
